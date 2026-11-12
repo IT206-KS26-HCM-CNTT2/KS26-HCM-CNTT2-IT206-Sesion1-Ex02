@@ -1,0 +1,42 @@
+BÀI GIẢI TÌNH HUỐNG: RÒ RỈ DỮ LIỆU KHÁCH HÀNG VIP TRÊN PUBLIC AI TẠI MARTX
+PHẦN 1: RÀ SOÁT & PHÂN LOẠI DỮ LIỆU RÒ RỈ
+1. Ba nhóm dữ liệu thuộc "Vùng cấm tuyệt đối" (Theo chính sách an toàn AI Doanh nghiệp):
+Nhóm 1: Dữ liệu định danh cá nhân nhạy cảm (PII - Personally Identifiable Information)
+Các thông tin có thể dùng để xác định trực tiếp hoặc gián tiếp một cá nhân cụ thể (Họ tên đầy đủ, số điện thoại cá nhân, địa chỉ nhà riêng, số CCCD/Hộ chiếu, email cá nhân...).
+Nhóm 2: Dữ liệu tài chính, thanh toán và bảo mật ngân hàng (PCI / Financial Data)
+Thông tin liên quan đến tài sản, lịch sử giao dịch và các khóa bảo mật thanh toán (Số thẻ ngân hàng/ATM, hạn mức tín dụng, số tài khoản, mã PIN, mã CVV/CVC, mật khẩu giao dịch...).
+Nhóm 3: Dữ liệu bí mật kinh doanh và tài sản trí tuệ nội bộ (Confidential Business Data / IP)
+Danh sách khách hàng chiến lược/VIP, dữ liệu doanh thu chưa công bố, chiến lược giá, mã nguồn độc quyền, hợp đồng bảo mật...
+Lưu ý về nhận thức sai của Lan: Trên phiên bản ChatGPT Public Web UI mặc định, dữ liệu nhập vào được lưu trên máy chủ của nhà cung cấp và có thể được sử dụng để huấn luyện lại mô hình (Re-training) hoặc được nhân viên kiểm duyệt của hãng đọc qua. Do đó, hoàn toàn không có khái niệm "riêng tư tuyệt đối" trên các công cụ AI công cộng.
+2. Đối chiếu và phân loại vi phạm thực tế trong Bảng dữ liệu:
+Toàn bộ tệp / Danh sách khách hàng VIP:
+Dữ liệu rò rỉ: Cấu trúc tệp khách hàng VIP nội bộ của MartX.
+Vi phạm Nhóm 3: Bí mật kinh doanh nội bộ (Tài sản dữ liệu khách hàng chiến lược của doanh nghiệp). Mức độ: Nghiêm trọng.
+Họ và tên Khách hàng:
+Dữ liệu rò rỉ: Nguyễn Thị Mai, Trần Văn Hùng, Lê Hoàng Nam.
+Vi phạm Nhóm 1: Dữ liệu định danh cá nhân (PII). Mức độ: Cao.
+Số điện thoại:
+Dữ liệu rò rỉ: 0912.345.678, 0988.777.666, 0903.111.222.
+Vi phạm Nhóm 1: Dữ liệu định danh cá nhân (PII). Mức độ: Cao.
+Địa chỉ nhà & Ghi chú VIP:
+Dữ liệu rò rỉ: 123 Nguyễn Trãi Q1 TP.HCM, Biệt thự 15 Thảo Điền TP. Thủ Đức, Số 45 Lê Lợi Q3 TP.HCM.
+Vi phạm Nhóm 1: Dữ liệu định danh cá nhân (PII) - Tạo nguy cơ mất an toàn vật lý cho khách hàng VIP. Mức độ: Rất nghiêm trọng.
+Thông tin Thẻ Ngân hàng / Tài chính:
+Dữ liệu rò rỉ: Số thẻ ATM 9704.1234.5678.9012, Hạn mức tín dụng 500.000.000 VNĐ, Mã PIN/CVV 888 (Tài khoản MartX Pay).
+Vi phạm Nhóm 2: Dữ liệu tài chính & bảo mật thanh toán (Vi phạm chuẩn bảo mật thẻ thanh toán PCI-DSS; lộ mã PIN/CVV có thể dẫn tới chiếm đoạt tiền ngay lập tức). Mức độ: Cực kỳ nghiêm trọng (Khẩn cấp).
+PHẦN 2: ĐÁNH GIÁ NGUY CƠ PHÁP LÝ & QUY TRÌNH XỬ LÝ SỰ CỐ KHẨN CẤP
+1. Đánh giá nguy cơ pháp lý MartX phải đối mặt:
+Vi phạm pháp luật bảo vệ dữ liệu cá nhân: Chiếu theo Nghị định 13/2023/NĐ-CP và Luật Bảo vệ dữ liệu cá nhân của Việt Nam, việc tự ý chuyển dữ liệu cá nhân nhạy cảm (thông tin tài chính, địa chỉ, số điện thoại) của khách hàng ra máy chủ nước ngoài (OpenAI) mà không có sự đồng ý của chủ thể dữ liệu và không đánh giá tác động chuyển dữ liệu ra nước ngoài sẽ khiến MartX bị xử phạt hành chính nặng, thậm chí bị đình chỉ hoạt động xử lý dữ liệu.
+Vi phạm tiêu chuẩn bảo mật thẻ thanh toán (PCI-DSS) và Luật An toàn thông tin mạng: Việc để lộ số thẻ ngân hàng kèm mã bảo mật (PIN/CVV) vi phạm nghiêm trọng quy định của Ngân hàng Nhà nước và tổ chức thẻ quốc tế. MartX có thể bị phạt tiền từ các đối tác cổng thanh toán/ngân hàng liên kết và tước quyền chấp nhận thanh toán thẻ.
+Rủi ro kiện tụng, bồi thường thiệt hại và khủng hoảng truyền thông: Nếu khách hàng VIP bị kẻ gian khai thác thông tin để lừa đảo hoặc chiếm đoạt tiền trong tài khoản MartX Pay hoặc thẻ ngân hàng, MartX phải chịu trách nhiệm bồi thường thiệt hại dân sự theo Luật Bảo vệ quyền lợi người tiêu dùng, đồng thời mất uy tín thương hiệu nghiêm trọng.
+2. Đề xuất 3 bước xử lý sự cố khẩn cấp cho Phòng IT:
+Bước 1: Cô lập phiên làm việc và Xóa dữ liệu trên nền tảng AI (Trong vòng 15 phút đầu tiên)
+Yêu cầu Lan lập tức truy cập tài khoản ChatGPT đã dùng, thực hiện xóa đoạn hội thoại chứa dữ liệu khách hàng.
+Vào phần cài đặt (Settings > Data Controls), tắt ngay tùy chọn "Improve the model for everyone" (ngăn dùng dữ liệu để huấn luyện lại mô hình) và gửi yêu cầu xóa dữ liệu vĩnh viễn tới bộ phận hỗ trợ của OpenAI.
+Tạm khóa quyền truy cập vào hệ thống CRM/dữ liệu khách hàng của tài khoản nhân viên Lan để rà soát xem còn tệp dữ liệu nào khác bị tải lên hay không.
+Bước 2: Phong tỏa rủi ro tài chính và Bảo vệ khách hàng bị ảnh hưởng (Trong vòng 1 đến 2 giờ)
+Khẩn cấp với ví MartX Pay: Phòng IT phối hợp với bộ phận Vận hành thanh toán khóa tạm thời mã PIN/CVV 888 của khách hàng Lê Hoàng Nam và yêu cầu thiết lập lại mã bảo mật mới.
+Cảnh báo ngân hàng & khách hàng: Thông báo ngay cho ngân hàng phát hành thẻ (9704.1234.5678.9012 của khách hàng Nguyễn Thị Mai) để theo dõi giao dịch bất thường hoặc hỗ trợ khóa/đổi thẻ miễn phí; đồng thời gửi thông báo minh bạch và hướng dẫn cảnh giác lừa đảo tới 3 khách hàng VIP theo đúng quy định báo cáo sự cố dữ liệu cá nhân.
+Bước 3: Siết chặt kiểm soát kỹ thuật và Rà soát tuân thủ nội bộ (Trong vòng 24 giờ)
+Cấu hình tường lửa / hệ thống DLP (Data Loss Prevention) trên mạng nội bộ MartX để chặn việc truy cập các trang AI công cộng (ChatGPT, Claude, Gemini bản miễn phí...) bằng tài khoản cá nhân, hoặc chặn tính năng sao chép/tải lên tệp dữ liệu từ CRM ra trình duyệt ngoài.
+Lập biên bản sự cố an toàn thông tin, báo cáo Ban Giám đốc và Bộ phận Pháp chế để chuẩn bị hồ sơ thông báo sự cố tới cơ quan chức năng (Cục An ninh mạng và phòng, chống tội phạm sử dụng công nghệ cao - A05) trong thời hạn 72 giờ theo quy định pháp luật.
